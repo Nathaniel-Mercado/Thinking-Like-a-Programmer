@@ -33,10 +33,8 @@ def shift_letter(letter, shift):
     # Stay within the function. Only use the parameters as input. The function should return your answer.
     if (letter == " "):
         return (' ')
-    elif (ord(letter) == 90):
-        return chr(ord('A') + shift - 1)
-    elif (ord(letter) + shift >= 91):
-        return chr(ord(letter) + (shift % 26))
+    elif ((ord(letter)+shift) >= 91):
+        return chr(ord('A') + (shift - (ord('Z')-ord(letter)+1)))
     else:
         return chr(ord(letter) + shift)
 
@@ -61,7 +59,7 @@ def caesar_cipher(message, shift):
     output = ""
     for i in message:
         if (ord(i)+shift) >=91:
-            output += chr((ord(i) + shift)-26)
+            output += chr(ord('A') + (shift - (ord('Z')-ord(i)+1)))
         else:
             output += chr(ord(i) + shift)
     return(output)
@@ -94,7 +92,7 @@ def shift_by_letter(letter, letter_shift):
     if (letter == ""):
         print ("")
     elif (ord(letter)+(ord(letter_shift)-ord('A')))>=91:
-        return(chr(ord(letter)+(ord(letter_shift))-(ord('A'))-26))
+        return(chr(ord('A') + ((ord(letter_shift)-ord('A')) - (ord('Z')-ord(letter)+1))))
     else:
         return(chr(ord(letter)+(ord(letter_shift))-(ord('A'))))
 
