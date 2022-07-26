@@ -34,7 +34,7 @@ def shift_letter(letter, shift):
     if (letter == " "):
         return (' ')
     elif ((ord(letter)+shift) >= 91):
-        return chr(ord('A') + (shift - (ord('Z')-ord(letter)+1)))
+        return chr(ord('A') + (shift%26))
     else:
         return chr(ord(letter) + shift)
 
@@ -56,12 +56,13 @@ def caesar_cipher(message, shift):
     '''
     # Replace `pass` with your code. 
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    output = ""
+    output = ''
     for i in message:
-        if (ord(i)+shift) >=91:
-            output += chr(ord('A') + (shift - (ord('Z')-ord(i)+1)))
+        if i == ' ':
+            output += output
         else:
-            output += chr(ord(i) + shift)
+            output = output + chr((ord(i) + shift - 65) % 26 + 65)
+    return output
     return(output)
 
 def shift_by_letter(letter, letter_shift):
@@ -89,8 +90,9 @@ def shift_by_letter(letter, letter_shift):
     '''
     # Replace `pass` with your code. 
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    if (letter == ""):
-        print ("")
+    output = " "
+    if (letter == ''):
+        return (output)
     elif (ord(letter)+(ord(letter_shift)-ord('A')))>=91:
         return(chr(ord('A') + ((ord(letter_shift)-ord('A')) - (ord('Z')-ord(letter)+1))))
     else:
@@ -123,20 +125,20 @@ def vigenere_cipher(message, key):
     '''
     # Replace `pass` with your code. 
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    emessage = []
-    key = list(key)
-    if len(message) == len(key):
-        return(key)
-    else:
-        for i in range(len(message) - len(key)):
-            key.append(key[i%len(key)])
-    return(''.join(key))
-    for i in range(len(message)):
-        x = (ord(message[i]) + ord(key[i]))%26
-        x =+ ord('A')
-        vigenere_cipher(chr(x))
-    emssage=(''.join(emessage))
-    return(emessage)
+    coded = ''
+    mletter=[]
+    kletter = []
+    for x in message:
+        mletter.append(ord(x))
+    for y in key:
+        kletter.append(ord(y))
+    for i in range(len(mletter)):
+        if message[i]==' ':
+            coded += " "
+        else:
+            cod = (mletter[i] + kletter[i % len(key)]) % 26
+            coded += chr(cod + 65)
+    return coded
 
 def scytale_cipher(message, shift):
     '''Scytale Cipher.
